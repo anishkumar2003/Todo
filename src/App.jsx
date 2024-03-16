@@ -2,12 +2,30 @@ import React, { useEffect, useState } from "react";
 import TodoForm from "./Componenets/Todoformui/TodoForm";
 import TodoItem from "./Componenets/Todoui/TodoItem";
 import { TodoProvider } from "./Context/index";
+import ThemeBtn from "./Componenets/ThemeBtn/ThemeBtn"; // Import ThemeBtn
+import { ThemeProvider } from "./Context/Theme";
 
 export default function App() {
+  const [theme, setTheme] = useState("dark");
+
+  const darkTheme = () => {
+    setTheme("dark");
+  };
+
+  const lightTheme = () => {
+    setTheme("light");
+  };
+
+  useEffect(() => {
+    document.querySelector("html").classList.remove("light", "dark");
+    document.querySelector("html").classList.add(theme);
+  }, [theme]);
+
+  // Existing state and functions for todos
   const [todos, setTodos] = useState([]);
 
   const addTodo = (todo) => {
-    setTodos((prev) => [...prev,{ id: Date.now(), ...todo }]);
+    setTodos((prev) => [...prev, { id: Date.now(), ...todo }]);
   };
 
   const deleteTodo = (id) => {
@@ -16,7 +34,7 @@ export default function App() {
 
   const updateTodo = (id, todo) => {
     setTodos((prev) =>
-      prev.map((prevtodo) => (todo.id === id ? todo : prevtodo))
+      prev.map((prevtodo) => (prevtodo.id === id ? todo : prevtodo))
     );
   };
 
@@ -40,30 +58,35 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos)), [todos];
-  });
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <TodoProvider
       value={{ todos, addTodo, deleteTodo, updateTodo, toggleCompleted }}
     >
-      <div className="bg-[#172842] min-h-screen py-8">
-        <div className="w-full md:max-w-3xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
-          <h1 className="text-2xl font-bold text-center mb-8 mt-2">
-            Manage Your Todos
-          </h1>
-          <div className="mb-4">
-            <TodoForm />
-          </div>
-          <div className="flex flex-wrap gap-y-3">
-            {todos.map((todo) => (
-              <div key={todo.id} className="w-full">
-                <TodoItem todo={todo} />
-              </div>
-            ))}
+      <ThemeProvider value={{ theme, darkTheme, lightTheme }}>
+        <div className="min-h-screen py-8 dark:bg-[#172842]">
+          <div className="w-full md:max-w-3xl mx-auto shadow-md rounded-lg px-4 py-3 dark:text-white">
+            <div className="heading grid grid-cols-7">
+              <h1 className="text-3xl font-bold text-center mb-4 col-span-6">
+                Todo App
+              </h1>
+              <ThemeBtn /> {/* Include ThemeBtn here */}
+            </div>
+            <div className="mb-4">
+              <TodoForm />
+            </div>
+            <div className="flex flex-wrap gap-y-3">
+              {todos.map((todo) => (
+                <div key={todo.id} className="w-full">
+                  <TodoItem todo={todo} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      </ThemeProvider>
     </TodoProvider>
   );
 }
