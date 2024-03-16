@@ -15,19 +15,19 @@ function TodoItem({ todo }) {
   };
   return (
     <div
-      className={`flex border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 shadow-sm shadow-white/50 duration-300  text-black ${
+      className={`md:flex border border-black/10 rounded-lg px-3 py-1.5 md:gap-x-3 shadow-sm shadow-white/50 duration-300  text-black ${
         todo.completed ? "bg-[#c6e9a7]" : "bg-[#ccbed7]"
       }`}
     >
       <input
         type="checkbox"
-        className="cursor-pointer"
+        className="cursor-pointer "
         checked={todo.completed}
         onChange={toggleComplete}
       />
       <input
         type="text"
-        className={`border outline-none w-[50%] bg-transparent rounded-lg ${
+        className={`border outline-none md:w-[50%] bg-transparent rounded-lg ${
           isTodoEditable ? "border-black/10 px-2" : "border-transparent"
         } ${todo.completed ? "line-through" : ""}`}
         value={todoMsg}
@@ -35,7 +35,7 @@ function TodoItem({ todo }) {
         readOnly={!isTodoEditable}
       />
       {/* Display date and time */}
-      <div className="hidden md:flex gap-5">
+      <div className="md:flex gap-5">
         <p>Date: {todo.date}</p>
         <p>Time {todo.time}</p>
       </div>
