@@ -23,19 +23,19 @@ function TodoForm() {
       <input
         type="text"
         placeholder="Write Todo..."
-        className="w-full border border-black/10 rounded-l-lg px-3 outline-none duration-150 bg-white/20 py-1.5"
+        className="w-full border border-black/10 rounded-l-lg px-3 outline-none duration-150 bg-white/20 py-1.5 m-1 md:m-0"
         value={todo}
         onChange={(e) => setTodo(e.target.value)}
       />
       <input
         type="date"
-        className="w-full border border-black/10 rounded-l-lg px-3 outline-none duration-150 bg-white/20 py-1.5"
+        className="w-full border border-black/10 rounded-l-lg px-3 outline-none duration-150 bg-white/20 py-1.5 m-1 md:m-0"
         value={date}
         onChange={(e) => setDate(e.target.value)}
       />
       <input
         type="time"
-        className="w-full border border-black/10 rounded-l-lg px-3 outline-none duration-150 bg-white/20 py-1.5"
+        className="w-full border border-black/10 rounded-l-lg px-3 outline-none duration-150 bg-white/20 py-1.5 m-1 md:m-0"
         value={time}
         onChange={(e) => setTime(e.target.value)}
       />
