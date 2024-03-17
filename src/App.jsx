@@ -4,16 +4,20 @@ import TodoItem from "./Componenets/Todoui/TodoItem";
 import { TodoProvider } from "./Context/index";
 import ThemeBtn from "./Componenets/ThemeBtn/ThemeBtn"; // Import ThemeBtn
 import { ThemeProvider } from "./Context/Theme";
+import SystemNotification from "./Componenets/Notification/SystemNotification";
 
 export default function App() {
-  const [theme, setTheme] = useState("dark");
+  let th=localStorage.getItem("theme");
+  const [theme, setTheme] = useState(th ? th : "light");
 
   const darkTheme = () => {
     setTheme("dark");
+    localStorage.setItem("theme", "dark");
   };
 
   const lightTheme = () => {
     setTheme("light");
+    localStorage.setItem("theme", "light");
   };
 
   useEffect(() => {
@@ -73,6 +77,7 @@ export default function App() {
                 Todo App
               </h1>
               <ThemeBtn /> {/* Include ThemeBtn here */}
+              <SystemNotification/>
             </div>
             <div className="mb-4">
               <TodoForm />
